@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve('lib'),
-    filename: 'BoilerplateComponent.js',
+    filename: 'index.js',
     libraryTarget: 'commonjs2'
   },
   module: {

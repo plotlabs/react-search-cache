@@ -1,8 +1,7 @@
 {
   "name": "react-offline-search",
   "version": "1.0.0",
-  "description":
-    "A resuble smart searchbar with data caching for offline searches",
+  "description": "A resuble smart searchbar with data caching for offline searches",
   "main": "./lib/index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -23,7 +22,6 @@
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14"
   },
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
