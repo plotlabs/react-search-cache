@@ -31,9 +31,7 @@ class SearchBar extends Component {
           searchTermLowerCase: ''
         };
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   componentWillReceiveProps(nextProps) {
@@ -50,13 +48,10 @@ class SearchBar extends Component {
     });
     try {
       localStorage.setItem('SearchBarState', serializedState);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   updateCachedData = data => {
-    console.log(data);
     this.setState(
       {
         cachedData: {
@@ -101,7 +96,6 @@ class SearchBar extends Component {
         <button
           style={styles.button}
           onClick={() => {
-            console.log('here');
             if (!(searchTermLowerCase in cachedData)) {
               this.props.onSearch(this.state.searchTermLowerCase);
             } else {
