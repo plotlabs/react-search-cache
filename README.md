@@ -1,5 +1,7 @@
 # React Search Cache 💾
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/plotlabs/react-search-cache/blob/master/LICENSE.txt) [![Build Status](https://travis-ci.org/plotlabs/react-search-cache.svg?branch=master)](https://travis-ci.org/plotlabs/react-search-cache) [![CodeFactor](https://www.codefactor.io/repository/github/plotlabs/react-search-cache/badge)](https://www.codefactor.io/repository/github/plotlabs/react-search-cache) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://www.plotlabs.io/) [![npm](https://img.shields.io/npm/v/react-search-cache.svg)](https://www.npmjs.com/package/react-search-cache)
+
 A smart search component which caches your searched data in localstorage.The searched data can be retrived even there is no network connection.
 
 Ideal for saving expensive network requests and for offline Webapps.
