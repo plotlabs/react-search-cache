@@ -1,6 +1,6 @@
 {
   "name": "react-search-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A smart searchbar with data caching for offline searches",
   "main": "./lib/index.js",
   "license": "MIT",
@@ -15,6 +15,9 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.4.3",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
@@ -23,7 +26,7 @@
     "webpack-cli": "^2.0.14"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack --watch",
     "build": "webpack"
   },

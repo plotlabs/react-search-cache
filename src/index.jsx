@@ -11,6 +11,11 @@ const propTypes = {
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchTerm: '',
+      cachedData: {},
+      searchTermLowerCase: ''
+    };
     this.loadState();
   }
 
