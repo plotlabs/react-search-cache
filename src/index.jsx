@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class SearchBar extends Component {
+const propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  handleDataToRender: PropTypes.func.isRequired,
+  apiData: PropTypes.object.isRequired,
+  styles: PropTypes.object
+};
+
+class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.loadState();
@@ -14,7 +22,8 @@ export default class SearchBar extends Component {
       } else {
         this.state = {
           searchTerm: '',
-          cachedData: {}
+          cachedData: {},
+          searchTermLowerCase: ''
         };
       }
     } catch (err) {
@@ -29,7 +38,11 @@ export default class SearchBar extends Component {
   }
 
   saveState = () => {
-    const serializedState = JSON.stringify({ ...this.state, searchTerm: '' });
+    const serializedState = JSON.stringify({
+      ...this.state,
+      searchTerm: '',
+      searchTermLowerCase: ''
+    });
     try {
       localStorage.setItem('SearchBarState', serializedState);
     } catch (err) {
@@ -38,44 +51,96 @@ export default class SearchBar extends Component {
   };
 
   updateCachedData = data => {
+    console.log(data);
     this.setState(
       {
         cachedData: {
           ...this.state.cachedData,
-          [this.state.searchTerm]: data.city
+          [this.state.searchTermLowerCase]: data.city
         }
       },
       () => {
         this.saveState();
         this.props.handleDataToRender(
-          this.state.cachedData[this.state.searchTerm]
+          this.state.cachedData[this.state.searchTermLowerCase]
         );
       }
     );
   };
 
   render() {
-    let { cachedData, searchTerm } = this.state;
+    const { cachedData, searchTerm, searchTermLowerCase } = this.state;
+    const styles = this.props.styles || {};
 
     return (
       <div>
         <input
           type="text"
+          style={styles.input}
           onChange={e => {
-            this.setState({ searchTerm: e.target.value });
+            this.setState({
+              searchTerm: e.target.value,
+              searchTermLowerCase: e.target.value.toLowerCase()
+            });
           }}
           onKeyPress={e => {
             if (e.key === 'Enter') {
-              if (!(searchTerm in cachedData)) {
-                this.props.onSearch(this.state.searchTerm);
+              if (!(searchTermLowerCase in cachedData)) {
+                this.props.onSearch(this.state.searchTermLowerCase);
               } else {
-                this.props.handleDataToRender(cachedData[searchTerm]);
+                this.props.handleDataToRender(cachedData[searchTermLowerCase]);
               }
             }
           }}
         />
-        {/* <button onClick={this.handleSearch}>OK</button> */}
+        <button
+          style={styles.button}
+          onClick={() => {
+            console.log('here');
+            if (!(searchTermLowerCase in cachedData)) {
+              this.props.onSearch(this.state.searchTermLowerCase);
+            } else {
+              this.props.handleDataToRender(cachedData[searchTermLowerCase]);
+            }
+          }}
+        >
+          Search
+        </button>
       </div>
     );
   }
 }
+const defaultProps = {
+  styles: {
+    input: {
+      background: 'transparent',
+      borderWidth: '1px',
+      lineHeight: '1.5',
+      height: '43px',
+      width: '500px',
+      borderRadius: '5px',
+      fontSize: '17px'
+    },
+    button: {
+      fontSize: '19px',
+      paddingTop: '0px',
+      paddingBottom: '0px',
+      color: '#ffffff',
+      paddingLeft: '18px',
+      paddingRight: '18px',
+      borderRadius: '4px',
+      border: '0px',
+      background: '#FF5A5F',
+      height: '45px',
+      textAlign: 'center',
+      display: 'inline-block',
+      whiteSpace: 'nowrap',
+      marginLeft: '7px'
+    }
+  }
+};
+
+SearchBar.propTypes = propTypes;
+SearchBar.defaultProps = defaultProps;
+
+export default SearchBar;

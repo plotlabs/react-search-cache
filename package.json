@@ -1,7 +1,7 @@
 {
-  "name": "react-offline-search",
+  "name": "react-search-cache",
   "version": "1.0.0",
-  "description": "A resuble smart searchbar with data caching for offline searches",
+  "description": "A smart searchbar with data caching for offline searches",
   "main": "./lib/index.js",
   "license": "MIT",
   "peerDependencies": {
