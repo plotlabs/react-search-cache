@@ -1,3 +1,15 @@
+/**
+ *
+ *
+ * @File: Main Module
+ * @Author: Utkarsh Kandpal
+ * @Organisation: PlotLabs Technologies
+ * @Website: https://www.plotlabs.io/
+ * @License: The MIT License (MIT)
+ *
+ *
+ */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,6 +20,12 @@ const propTypes = {
   styles: PropTypes.object
 };
 
+/**
+ *
+ * Type: Function.
+ * Searchbar component that renders an input and button.
+ *
+ */
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +37,12 @@ class SearchBar extends Component {
     this.loadState();
   }
 
+  /**
+   *
+   * Type: Function.
+   * Load the initail state of the app from the localstorage.
+   *
+   */
   loadState = () => {
     try {
       const serializedState = localStorage.getItem('SearchBarState');
@@ -40,6 +64,12 @@ class SearchBar extends Component {
     }
   }
 
+  /**
+   *
+   * Type: Function.
+   * Saves the current local state of the component to local storage.
+   *
+   */
   saveState = () => {
     const serializedState = JSON.stringify({
       ...this.state,
@@ -51,6 +81,12 @@ class SearchBar extends Component {
     } catch (err) {}
   };
 
+  /**
+   *
+   * Type: Function.
+   * Updates the cached data.
+   *
+   */
   updateCachedData = data => {
     this.setState(
       {
@@ -68,6 +104,49 @@ class SearchBar extends Component {
     );
   };
 
+  /**
+   *
+   * Type: Function.
+   * Updates the searchTerm in the state.
+   *
+   */
+  handleInputChange = e => {
+    this.setState({
+      searchTerm: e.target.value,
+      searchTermLowerCase: e.target.value.toLowerCase()
+    });
+  };
+
+  /**
+   *
+   * Type: Function.
+   * Calls the api to retrieve search data.
+   *
+   */
+  handleInputKeyPress = e => {
+    if (e.key === 'Enter') {
+      if (!(searchTermLowerCase in cachedData)) {
+        this.props.onSearch(this.state.searchTermLowerCase);
+      } else {
+        this.props.handleDataToRender(cachedData[searchTermLowerCase]);
+      }
+    }
+  };
+
+  /**
+   *
+   * Type: Function.
+   * Calls the api to retrieve search data.
+   *
+   */
+  handleButtonClick = () => {
+    if (!(searchTermLowerCase in cachedData)) {
+      this.props.onSearch(this.state.searchTermLowerCase);
+    } else {
+      this.props.handleDataToRender(cachedData[searchTermLowerCase]);
+    }
+  };
+
   render() {
     const { cachedData, searchTerm, searchTermLowerCase } = this.state;
     const styles = this.props.styles || {};
@@ -77,32 +156,10 @@ class SearchBar extends Component {
         <input
           type="text"
           style={styles.input}
-          onChange={e => {
-            this.setState({
-              searchTerm: e.target.value,
-              searchTermLowerCase: e.target.value.toLowerCase()
-            });
-          }}
-          onKeyPress={e => {
-            if (e.key === 'Enter') {
-              if (!(searchTermLowerCase in cachedData)) {
-                this.props.onSearch(this.state.searchTermLowerCase);
-              } else {
-                this.props.handleDataToRender(cachedData[searchTermLowerCase]);
-              }
-            }
-          }}
+          onChange={this.handleInputChange}
+          onKeyPress={this.handleInputKeyPress}
         />
-        <button
-          style={styles.button}
-          onClick={() => {
-            if (!(searchTermLowerCase in cachedData)) {
-              this.props.onSearch(this.state.searchTermLowerCase);
-            } else {
-              this.props.handleDataToRender(cachedData[searchTermLowerCase]);
-            }
-          }}
-        >
+        <button style={styles.button} onClick={this.handleButtonClick}>
           Search
         </button>
       </div>

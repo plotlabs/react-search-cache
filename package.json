@@ -1,6 +1,6 @@
 {
   "name": "react-search-cache",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A smart searchbar with data caching for offline searches",
   "main": "./lib/index.js",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.21.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.16.0",
